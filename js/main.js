@@ -1,20 +1,16 @@
 $(function () {
   'use strict';
-  // Adjust Slider Height
-  var winH    = $(window).height(),
-      upperH  = $('.upper-bar').innerHeight(),
-      navH    = $('.navbar').innerHeight();
-  $('.slider, .carousel-item').height(winH - ( upperH + navH ));
-
-  // Featured Work Shuffle
-  $('.featured-work ul li').on('click', function () {
-    $(this).addClass('active').siblings().removeClass('active');
-    if ($(this).data('class') === 'all') {
-      $('.shuffle-imgs .col-md').css('opacity', 1);
-    } else {
-      $('.shuffle-imgs .col-md').css('opacity', '.08');
-      $($(this).data('class')).parent().css('opacity', 1);
-    }
+  $(window).scroll(function () {
+    var navbar = $('.navbar');
+    $(window).scrollTop() >= navbar.height() ? navbar.addClass('scrolled') : navbar.removeClass('scrolled');
   });
-
+  // Deal With Tabs
+  $('.tab-switch li').click(function () {
+    // Add Selected Class To Active Link
+    $(this).addClass('selected').siblings().removeClass('selected');
+    // Hide All Divs
+    $('.tabs-section .tabs-content > div').hide();
+    // Show Div Connected With This Link
+    $($(this).data('class')).show();
+  });
 });
